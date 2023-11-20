@@ -13,7 +13,7 @@ test("My first test", function(){
 
 // SUT
 // Version 1.0
-function add(){
+function addV1(){
     function parseArg(n){
         if (Array.isArray(n)){
             var result = 0;
@@ -22,6 +22,20 @@ function add(){
             }
             return result;
         }
+        if (typeof n === 'function') return parseArg(n());
+        return isNaN(n) ? 0 : parseInt(n);
+    }
+    var result = 0;
+    for (var idx = 0; idx < arguments.length; idx++){
+        result += parseArg(arguments[idx]);
+    }
+    return result;
+}
+
+// Version 2.0
+function add(){
+    function parseArg(n){
+        if (Array.isArray(n)) return add.apply(this, n)
         if (typeof n === 'function') return parseArg(n());
         return isNaN(n) ? 0 : parseInt(n);
     }
