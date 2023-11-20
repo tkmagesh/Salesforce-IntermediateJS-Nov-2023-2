@@ -6,8 +6,11 @@
     - Functions are NOT merely programming constructs
     - Functions are first class citizens (aka functions can be treatd like data/object)
     - Support for Higher Order Functions
+3. Loosely typed language
+4. Dynamic
 
-## Object & Function Creation (1)
+## Functions as Objects
+### Object & Function Creation (1)
 ```
 //Object Creation (using object expression)
 var obj = {}
@@ -21,7 +24,7 @@ var f2 = function(){
 }
 ```
 
-## Object # Function Creation (2)
+### Object # Function Creation (2)
 ```
 //Object Creation (using Object constructor)
 var obj = new Object()
@@ -35,7 +38,7 @@ var add = new Function('x', 'y', 'return x + y;')
 
 ```
 
-## State
+### State
 ```
 //Object can have state (attributes)
 var obj = {}
@@ -46,7 +49,7 @@ var fn = function(){}
 fn['id'] = 100
 ```
 
-## Behavior
+### Behavior
 ```
 //Object can have behavior (methods)
 var person = {
@@ -67,7 +70,7 @@ fn['whoAmI'] = function(){
 fn.whoAmI();
 ```
 
-## Passed as arguments 
+### Passed as arguments 
 ```
 function printType(z){
     console.log('typeof z : ', typeof z);
@@ -83,7 +86,7 @@ printType(fn)
 
 ```
 
-## Returned as return values from functions (higher order function)
+### Returned as return values from functions (higher order function)
 ```
 function getFn(){
     var fn = function(){
@@ -95,4 +98,40 @@ function getFn(){
 var fn = getFn()
 
 typeof fn
+```
+
+## Loosely typed
+```
+var x
+x = 100
+x = "this is a string"
+x = true
+x = {}
+x = function(){}
+
+```
+
+## Dynamic
+```
+var car = {}
+
+//use the [] notation to introduce new attributes (convention and not mandatory)
+car['id'] = 100
+car['color'] = 'Red'
+
+//Use either '.' or '[]' for reading the attribute values
+console.log(car.id)
+console.log(car['id'])
+
+//iterate through the attributes using for..in
+for(var attrName in car){
+    console.log(attrName,' - ', car[attrName])
+}
+
+//to remove an existing attribute (NOT advisable)
+delete car.id
+
+//acceptable approach
+car.id = undefined
+
 ```
