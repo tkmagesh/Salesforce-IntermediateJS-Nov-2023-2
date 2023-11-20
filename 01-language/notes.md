@@ -135,3 +135,31 @@ delete car.id
 car.id = undefined
 
 ```
+
+## Functions
+Whenever a function is invoked, 2 implicit values are available in the function by default
+- arguments
+    - array like object with all the argument values passed to the function
+        - arguments.length (# of arguments)
+        - arguments[0]
+        - arguments[1]
+        - arguments[2]
+        - ...
+    - example
+    ```
+        function add(x,y){
+            var result = 0;
+            for (var idx = 0; idx < arguments.length; idx++){
+                result += arguments[idx]
+            }
+            return result;
+        }
+        
+        add(10)
+        
+        add(10,20)
+        
+        add(10,20,30,40,50)
+    ```
+- this
+
