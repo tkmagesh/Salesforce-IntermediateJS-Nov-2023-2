@@ -18,6 +18,12 @@ add(function(){ return [10,[20,"30"]];}, function(){ return [40,"abc"]; }) //=> 
 add([function(){ return [10,[20,"30"]];}, function(){ return [40,"abc"]; }]) //=> 100
 ```
 
+## Hints
+- Use "typeof" to check the type of the value (number, string, function)
+- Use Array.isArray() to check if the value is an array
+- Use isNaN() to check if the given value can/cannot be coverted to a number
+- Use parseInt() to convert a string to a number
+
 # Application setup
 
 ```
