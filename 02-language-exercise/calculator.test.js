@@ -13,7 +13,7 @@ test("My first test", function(){
 
 // SUT
 // Version 1.0
-function add(x,y){
+function add(){
     function parseArg(n){
         if (Array.isArray(n)){
             var result = 0;
@@ -31,7 +31,6 @@ function add(x,y){
     }
     return result;
 }
-
 
 // add the test cases for each usecase in the notes.md file and update the "add" function accordingly
 test('add(10,20) //=> 30', function(){
