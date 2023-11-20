@@ -25,3 +25,33 @@
 
 ### Verification
 > node --version
+
+## Agenda
+1. Language Fundamentals
+    - Language
+    - Function Invocation Patterns
+    - Invocation Context (this)
+    - Closures
+    - Functional Programming
+    - Prototypal Inheritance
+2. ES6 Features
+3. Asynchronous Programming
+    - Callbacks
+    - Promises
+    - Async Await
+4. Testing
+    - Jest
+    - Async Testing
+    - Mocks
+5. HTML5 APIs
+    - Storage
+    - Web Workers
+    - Server Sent Events
+    - Web Sockets
+6. Tools
+    - npm
+    - typescript
+    - webpack
+7. Security
+8. Other topics
+
