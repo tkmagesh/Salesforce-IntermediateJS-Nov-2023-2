@@ -14,6 +14,8 @@
 ## Methodology
 - No powerpoint
 - Discussion & Problem solving
+- No dedicated time for Q&A
+
 
 ## Repository
 - https://github.com/tkmagesh/salesforce-intermediatejs-nov-2023-2
@@ -54,4 +56,6 @@
     - webpack
 7. Security
 8. Other topics
+
+
 
