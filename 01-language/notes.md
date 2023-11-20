@@ -139,7 +139,7 @@ car.id = undefined
 ## Functions
 Whenever a function is invoked, 2 implicit values are available in the function by default
 - arguments
-    - array like object with all the argument values passed to the function
+    - array **like** object with all the argument values passed to the function
         - arguments.length (# of arguments)
         - arguments[0]
         - arguments[1]
