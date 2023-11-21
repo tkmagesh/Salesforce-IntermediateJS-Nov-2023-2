@@ -47,8 +47,8 @@ function addV2(){
 }
 
 
-// Version final
-function add(){
+// Version 3.0
+function addV3(){
     function parseArg(n){
         if (Array.isArray(n)) return add.apply(this, n)
         if (typeof n === 'function') return parseArg(n());
@@ -56,6 +56,19 @@ function add(){
     }
     return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add(Array.prototype.slice.call(arguments, 1))
 }
+
+// Version - ES6 
+function add(...args){
+    function parseArg(n){
+        if (Array.isArray(n)) return add(...n)
+        if (typeof n === 'function') return parseArg(n());
+        return isNaN(n) ? 0 : parseInt(n);
+    }
+    let [first, ...rest] = args
+    return args.length <= 1 ? parseArg(first) : parseArg(first) + add(...rest)
+}
+
+console.log(add.toString())
 
 // add the test cases for each usecase in the notes.md file and update the "add" function accordingly
 test('add(10,20) //=> 30', function(){
