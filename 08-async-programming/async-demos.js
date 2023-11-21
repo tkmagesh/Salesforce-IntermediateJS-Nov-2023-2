@@ -15,22 +15,49 @@
 
     window['addSyncClient'] = addSyncClient;
 
-    // async 
-    function addAsync(x,y){
-        console.log(`   [@addAsync] processing ${x} and ${y}`)
+    // async (using callback)
+    function addAsyncCallback(x,y, callback){
+        console.log(`   [@addAsyncCallback] processing ${x} and ${y}`)
         setTimeout(() => {
             const result = x + y
-            console.log(`   [@addAsync] returning result`)
-            return result;
+            console.log(`   [@addAsyncCallback] returning result`)
+            callback(result);
         }, 5000);
     }
 
-    function addAsyncClient(x,y){
-        console.log(`[@addAsyncClient] invoking the service`)
-        const result = addAsync(x,y)
-        console.log(`[@addAsyncClient] result : ${result}`)
+    function addAsyncCallbackClient(x,y){
+        console.log(`[@addAsyncCallbackClient] invoking the service`)
+        addAsyncCallback(x,y, function(result){
+            console.log(`[@addAsyncCallbackClient] result : ${result}`)
+        })
     }
 
-    window['addAsyncClient'] = addAsyncClient;
+    window['addAsyncCallbackClient'] = addAsyncCallbackClient;
 
+    // async (using Promise)
+    function addAsyncPromise(x,y){
+        console.log(`   [@addAsyncPromise] processing ${x} and ${y}`)
+        const p = new Promise(function(resolveFn, rejectFn){
+            setTimeout(() => {
+                const result = x + y
+                console.log(`   [@addAsyncPromise] returning result`)
+                // how to communicate the result to the promise
+                resolveFn(result)
+            }, 5000);
+        })
+        
+        return p;
+    }
+
+    window['addAsyncPromise'] = addAsyncPromise;
+    
+    function addAsyncPromiseClient(x,y){
+        console.log(`[@addAsyncPromiseClient] invoking the service`)
+        const p = addAsyncPromise(x,y);
+        p.then((result) => {
+            console.log(`[@addAsyncPromiseClient] result : ${result}`)
+        })
+    }
+    window['addAsyncPromiseClient'] = addAsyncPromiseClient;
+    
 })()
