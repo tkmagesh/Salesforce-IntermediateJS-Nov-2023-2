@@ -60,6 +60,32 @@ var isPrime = memoize(function(no){
 })
 
 //this does not work.  Modify the 'memoize' function to make this work
+function memoize(fn){
+    var cache = {}
+    return function (){
+        var key = JSON.stringify(arguments)
+        if (cache.hasOwnProperty(key)){
+            return cache[key]
+        }
+        console.log('processing : ', key)   
+        cache[key] = fn.apply(this, arguments)
+        return cache[key];
+    }
+}
 var memoizedAdd = memoize(function(x,y){
     return x + y
 });
+
+// NO NEED TO KEEP the cache as PRIVATE
+function memoize(fn){
+    fn['cache'] = fn['cache'] || {}
+    return function (){
+        var key = JSON.stringify(arguments)
+        if (fn.cache.hasOwnProperty(key)){
+            return fn.cache[key]
+        }
+        console.log('processing : ', key)   
+        fn.cache[key] = fn.apply(this, arguments)
+        return fn.cache[key];
+    }
+}
