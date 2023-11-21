@@ -30,4 +30,30 @@ IMPORTANT NOTE:
     spinner.up() //=> 1001
 */
 
-var spinner = /* ..... */
+var spinner = (function(){ //step-1
+    var counter = 0; //step-2
+
+    function up(){ //step-3
+        return ++counter; //step-4
+    }
+
+    function down(){ //step-3
+        return --counter; //step-4
+    }
+
+    var spinner = {
+        up : up,
+        down: down
+    }
+
+    return spinner; //step-5
+})()
+
+
+var counter = (function(){
+    var count = 0;
+    function counter(){
+        return ++count;
+    }
+    return counter;
+})()
