@@ -98,3 +98,6 @@ greet.apply(person, ['Mr.', 'Have a nice day!'])
     return x + y;
 })(100,200)
 ```
+
+## 6. Using the "new" keyword (constructor functions)
+- refer to '05-constructor-functions' folder for examples
