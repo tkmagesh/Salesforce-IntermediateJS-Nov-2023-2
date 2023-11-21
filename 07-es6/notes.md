@@ -46,7 +46,114 @@ let emp = { id : 100, name : 'Magesh', city : 'Bangalore' }
 let fulltimeEmp = { ...emp, benefits : 'Healthcare' }
 ```
 9. Default arguments
+```
+function add(x=10, y=20){
+    return x + y;
+}
+```
 10. Arrow functions
+```
+/*
+//function statement
+function add(x,y){
+    return x + y;
+}
+
+//function expression
+let add = function(x,y){
+    return x + y;
+}
+
+//arrow function
+let add = (x,y) => {
+    return x + y;
+}
+*/
+let add = (x,y) => x + y;
+```
 11. iterators
+```
+let nos = [3,1,4,2,5]
+for(let no of nos){
+    console.log(no)
+}
+```
 12. Template Strings
-13. Class
+```
+let x = 100, y = 200
+// 'sum of 100 and 200 is 300'
+let s1 = 'sum of ' + x + ' and ' + y + ' is ' + (x+y)
+let s2 = `sum of ${x} and ${y} is ${x+y}`
+```
+13. Object construction enhancements
+```
+let id = 100, name = 'Magesh', city = 'Bangalore'
+let emp = {
+    id,
+    name,
+    city,
+    display(){
+        console.log(`id = ${this.id}, name = ${this.name}, city = ${this.city}`)
+    }
+}
+```
+14. Class
+```
+class Employee {
+    
+    // instance members
+    #id = 0; // supposed to be private 
+    name = '';
+    city = '';
+
+    get id(){
+        console.log('id[getter] invoked');
+        return this.#id;
+    }
+    set id(val){
+        console.log('id[setter] invoked');
+        if (val <= 0){
+            throw new Error('invalid id');
+        }
+        this.#id = val;
+    }
+
+    // static members
+    static ModelType = 'Employee';
+
+    // constructor method
+    constructor(id, name, city){
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+
+    // instance method
+    format(){
+        return `id = ${this.id}, name = ${this.name}, city = ${this.city}`;
+    }
+
+    // static method
+    static IsEmployee(obj){
+        return obj instanceof Employee;
+    }
+}
+
+// class inheritance
+class FulltimeEmployee extends Employee {
+    // instance fields
+    benefits = '';
+
+    constructor(id, name, city, benefits){
+        super(id, name, city);
+        this.benefits = benefits;
+    }
+
+    // overriding base class method
+    format(){
+        return `${super.format()}, benefits = ${this.benefits}`;
+    }
+}
+```
+
+- Reference (http://es6-features.org)
