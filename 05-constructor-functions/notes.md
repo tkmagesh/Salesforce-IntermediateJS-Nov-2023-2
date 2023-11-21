@@ -5,6 +5,7 @@
     - this => returned by default
 - There is not syntax difference between a regular function and a constructor function
 - The function name starts with an uppercase (convention)
+- The instance object maintains a reference to the Constructor Function using the 'constructor' attribute
 
 ```
 function Product(id, name, cost){
