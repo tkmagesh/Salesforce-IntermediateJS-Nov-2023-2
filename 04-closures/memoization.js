@@ -33,6 +33,7 @@ var isOddOrEven = (function(){
 
 // Creating an utility function for memoization
 
+// fn = a function that operates on ONLY ONE argument
 function memoize(fn){
     var cache = {}
     return function (no){
@@ -58,3 +59,7 @@ var isPrime = memoize(function(no){
     return true
 })
 
+//this does not work.  Modify the 'memoize' function to make this work
+var memoizedAdd = memoize(function(x,y){
+    return x + y
+});
