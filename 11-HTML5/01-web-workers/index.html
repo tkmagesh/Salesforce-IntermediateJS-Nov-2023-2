@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers</title>
+    <script>
+        let divMessages;
+        let cpu_worker = new Worker('cpu-work.js')
+
+        cpu_worker.addEventListener('message', onWorkerMessage)
+
+        function onWorkerMessage(evtArg){
+            if (evtArg.data.type === 'completed'){
+                displayMessage('work completed')
+            } else if (evtArg.data.type === 'progress'){
+                document.getElementById('workProgress').value = evtArg.data.percentCompleted
+            } else {
+                console.log('unknown message from worker : ', evt.data);
+            }
+        }
+        function displayMessage(msg){
+            divMessages.innerHTML += msg + '<br/>'
+        }
+
+        function onBtnDoWorkClick(){
+            displayMessage('work started')
+            cpu_worker.postMessage({ type : 'start'})
+        }
+        function onDocumentLoad(){
+            let btnDoWork = document.getElementById('btnDoWork');
+            btnDoWork.addEventListener('click', onBtnDoWorkClick);
+
+            divMessages = document.getElementById('divMessages')
+        }
+        window.addEventListener('load', onDocumentLoad)
+    </script>
+</head>
+<body>
+    <input type="text" name="" id="">
+    <button id="btnDoWork">Work</button>
+    <div>
+        <progress id="workProgress" min="0" max="100" value="0"></progress>
+    </div>
+    <div id="divMessages"></div>
+</body>
+</html>
