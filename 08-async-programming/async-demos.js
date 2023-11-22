@@ -106,3 +106,41 @@
     window['divideAsyncPromiseClient'] = divideAsyncPromiseClient;
     
 })()
+
+// Promise chaining
+// if the follow up operation is sync
+let p = addAsyncPromise(100,200);
+let p2 = p.then(result => {
+    console.log('result :', result);
+    let doubleResult = result * 2;
+    return doubleResult; // no need to create a promise and return
+})
+p2.then(doubleResult => console.log('double result :', doubleResult))
+
+// if the follow up operation is an async operation
+/* 
+let p = addAsyncPromise(100,200);
+let p2 = p.then(result => {
+    console.log('result :', result);
+    return new Promise(function(resolveFn, rejectFn){
+        setTimeout(function(){
+            let doubleResult = result * 2;
+            resolveFn(doubleResult);    
+        },4000)
+    })
+})
+p2.then(doubleResult => console.log('double result :', doubleResult))
+*/
+
+/* 
+addAsyncPromise(100,200)
+    .then(result => {
+        console.log('result :', result);
+        return new Promise(function(resolveFn, rejectFn){
+            setTimeout(function(){
+                let doubleResult = result * 2;
+                resolveFn(doubleResult);    
+            },4000)
+        })
+    })
+    .then(doubleResult => console.log('double result :', doubleResult)) */
