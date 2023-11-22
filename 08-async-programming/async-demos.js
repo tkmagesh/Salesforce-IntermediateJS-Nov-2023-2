@@ -65,6 +65,7 @@
         console.log(`   [@divideAsyncPromise] processing ${x} and ${y}`)
         const p = new Promise(function(resolveFn, rejectFn){
             setTimeout(() => {
+                /* 
                 if (y === 0){
                     const divideByZeroError = new Error("cannot divide by 0")
                     rejectFn(divideByZeroError)
@@ -73,7 +74,17 @@
                 const result = x / y
                 console.log(`   [@divideAsyncPromise] returning result`)
                 // how to communicate the result to the promise
-                resolveFn(result)
+                resolveFn(result) 
+                */
+
+                try {
+                    const result = x / y
+                    console.log(`   [@divideAsyncPromise] returning result`)
+                    // how to communicate the result to the promise
+                    resolveFn(result) 
+                } catch (err){
+                    rejectFn(err)
+                }
             }, 5000);
         })
         
