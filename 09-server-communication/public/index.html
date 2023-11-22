@@ -5,12 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Communication</title>
     <script src="axios.min.js"></script>
+    <script>
+        (() => {
+            let bugsList;
+            /* 
+            function onBtnLoadClick(){
+                const p = axios.get('/bugs')
+                p.then(response => {
+                    const bugs = response.data;
+                    for(let bug of bugs){
+                        const bugItem = document.createElement('li');
+                        bugItem.innerText = bug.name;
+                        bugsList.appendChild(bugItem)
+                    }
+                })
+            }
+            function onBtnAddNewClick(){
+                const newBugName = document.getElementById('txtNewBugName').value;
+                const newBugData = {
+                    name : newBugName,
+                    createdAt : Date(),
+                    isClosed : false
+                }
+                axios.post('/bugs', newBugData)
+                    .then(response => {
+                        const newBug = response.data;
+                        const bugItem = document.createElement('li');
+                        bugItem.innerText = newBug.name;
+                        bugsList.appendChild(bugItem)
+                    })
+            } 
+            */
+
+            // Using async-await
+            async function onBtnLoadClick() {
+                const response = await axios.get('/bugs')
+                const bugs = response.data;
+                for (let bug of bugs) {
+                    const bugItem = document.createElement('li');
+                    bugItem.innerText = bug.name;
+                    bugsList.appendChild(bugItem)
+                }
+            
+            }
+            async function onBtnAddNewClick() {
+                const newBugName = document.getElementById('txtNewBugName').value;
+                const newBugData = {
+                    name: newBugName,
+                    createdAt: Date(),
+                    isClosed: false
+                }
+                const response = await axios.post('/bugs', newBugData)
+                const newBug = response.data;
+                const bugItem = document.createElement('li');
+                bugItem.innerText = newBug.name;
+                bugsList.appendChild(bugItem)
+            }
+
+            function onDocumentLoad(){
+                const btnLoad = document.getElementById('btnLoad');
+                btnLoad.addEventListener('click', onBtnLoadClick)
+
+                bugsList = document.getElementById('ulBugsList')
+
+                const btnAddNew = document.getElementById('btnAddNew');
+                btnAddNew.addEventListener('click', onBtnAddNewClick)
+            }
+            window.addEventListener('load', onDocumentLoad)
+        })()
+    </script>
 </head>
 <body>
     <h1>Bugs</h1>
     <button id="btnLoad">Load Bugs</button>
+    <br>
+    <label for="">Bug Name :</label>
+    <input type="text" name="" id="txtNewBugName">
+    <button id="btnAddNew">Add New</button>
     <ul id="ulBugsList">
-        
+
     </ul>
 </body>
 </html>
