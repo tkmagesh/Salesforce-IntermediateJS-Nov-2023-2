@@ -107,21 +107,39 @@ useCase('Functional Programming', function(){
     useCase('Filter', function(){
         useCase('[Specific] filter stationary products', function(){
             function filterStationaryProducts(){
-                return stationaryProducts?
+                let result = []
+                for (let product of products){
+                    if (product.category === 'stationary'){
+                        result.push(product)
+                    }
+                }
+                return result
             }
             const stationaryProducts = filterStationaryProducts()
             console.table(stationaryProducts)
         })
         useCase('[Generic] filter any list by any criteria', function(){
-            function filter(/*  */){
-
+            function filter(list, predicate){
+                let result = []
+                for (let item of list){
+                    if (predicate(item)){
+                        result.push(item)
+                    }
+                }
+                return result
             }
             useCase('costly products [cost > 50]', function(){
-                filter(/* ? */)
+                const costlyProductPredicate = product => product.cost > 50
+                const costlyProducts = filter(products, costlyProductPredicate)
+                console.table(costlyProducts)
             })
+            // filtering affordable products?
             useCase('understocked products [units < 50]', function(){
-                filter(/* ? */)
+                const understockedProductPredicate = product => product.units < 50
+                const understockedProducts = filter(products, understockedProductPredicate);
+                console.table(understockedProducts)
             })
+            // filtering wellstocked products?
         })
     })
 })
