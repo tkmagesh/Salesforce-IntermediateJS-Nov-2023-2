@@ -59,5 +59,39 @@
         })
     }
     window['addAsyncPromiseClient'] = addAsyncPromiseClient;
+
+    // promise rejection
+    function divideAsyncPromise(x,y){
+        console.log(`   [@divideAsyncPromise] processing ${x} and ${y}`)
+        const p = new Promise(function(resolveFn, rejectFn){
+            setTimeout(() => {
+                if (y === 0){
+                    const divideByZeroError = new Error("cannot divide by 0")
+                    rejectFn(divideByZeroError)
+                    return
+                }
+                const result = x / y
+                console.log(`   [@divideAsyncPromise] returning result`)
+                // how to communicate the result to the promise
+                resolveFn(result)
+            }, 5000);
+        })
+        
+        return p;
+    }
+
+    window['divideAsyncPromise'] = divideAsyncPromise;
+    
+    function divideAsyncPromiseClient(x,y){
+        console.log(`[@divideAsyncPromiseClient] invoking the service`)
+        const p = divideAsyncPromise(x,y);
+        p.then((result) => {
+            console.log(`[@divideAsyncPromiseClient] result : ${result}`)
+        })
+        p.catch(err => {
+            console.log('error from async operation : ', err)
+        })
+    }
+    window['divideAsyncPromiseClient'] = divideAsyncPromiseClient;
     
 })()
