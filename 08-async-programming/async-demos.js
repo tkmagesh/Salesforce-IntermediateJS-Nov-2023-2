@@ -51,12 +51,25 @@
 
     window['addAsyncPromise'] = addAsyncPromise;
     
+    
+    /* 
     function addAsyncPromiseClient(x,y){
         console.log(`[@addAsyncPromiseClient] invoking the service`)
         const p = addAsyncPromise(x,y);
         p.then((result) => {
             console.log(`[@addAsyncPromiseClient] result : ${result}`)
         })
+    } 
+    */
+
+    async function addAsyncPromiseClient(x,y){
+        console.log(`[@addAsyncPromiseClient] invoking the service`)
+        const p = addAsyncPromise(x,y);
+        const result = await p
+        console.log(`[@addAsyncPromiseClient] result : ${result}`)
+        // follow up operation
+        let doubleResult = result * 2;
+        return doubleResult;
     }
     window['addAsyncPromiseClient'] = addAsyncPromiseClient;
 
@@ -108,7 +121,31 @@
 })()
 
 // Promise chaining
-// if the follow up operation is sync
+// if the follow up operation is sync (v1.0)
+/*
+let p = addAsyncPromise(100,200);
+let p2 = p.then(result => {
+    console.log('result :', result);
+    let doubleResult = result * 2;
+    return new Promise((resolveFn, rejectFn) => {
+        resolveFn(doubleResult);
+    });
+})
+p2.then(doubleResult => console.log('double result :', doubleResult))
+*/
+// if the follow up operation is sync (v2.0)
+/* 
+let p = addAsyncPromise(100,200);
+let p2 = p.then(result => {
+    console.log('result :', result);
+    let doubleResult = result * 2;
+    return Promise.resolve(doubleResult);
+})
+p2.then(doubleResult => console.log('double result :', doubleResult)) 
+*/
+
+// if the follow up operation is sync (v3.0)
+/* 
 let p = addAsyncPromise(100,200);
 let p2 = p.then(result => {
     console.log('result :', result);
@@ -116,6 +153,8 @@ let p2 = p.then(result => {
     return doubleResult; // no need to create a promise and return
 })
 p2.then(doubleResult => console.log('double result :', doubleResult))
+*/
+
 
 // if the follow up operation is an async operation
 /* 
@@ -144,3 +183,33 @@ addAsyncPromise(100,200)
         })
     })
     .then(doubleResult => console.log('double result :', doubleResult)) */
+
+
+function doCalculation(x,y){
+    console.log(`[@client] invoking the add service`)
+    const addPromise = addAsyncPromise(x,y);
+    addPromise.then((result) => {
+        console.log(`[@client] add result : ${result}`)
+    })
+
+    console.log(`[@client] invoking the divide service`)
+    const dividePromise = divideAsyncPromise(x,y);
+    dividePromise.then((result) => {
+        console.log(`[@client] divide result : ${result}`)
+    })
+}
+
+// rewrite the below function using async-await
+function doCalculationAsyncAwait(x,y){
+    console.log(`[@client] invoking the add service`)
+    const addPromise = addAsyncPromise(x,y);
+    addPromise.then((result) => {
+        console.log(`[@client] add result : ${result}`)
+    })
+
+    console.log(`[@client] invoking the divide service`)
+    const dividePromise = divideAsyncPromise(x,y);
+    dividePromise.then((result) => {
+        console.log(`[@client] divide result : ${result}`)
+    })
+}
