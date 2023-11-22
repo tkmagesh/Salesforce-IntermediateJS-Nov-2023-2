@@ -128,18 +128,84 @@ useCase('Functional Programming', function(){
                 }
                 return result
             }
-            useCase('costly products [cost > 50]', function(){
-                const costlyProductPredicate = product => product.cost > 50
-                const costlyProducts = filter(products, costlyProductPredicate)
-                console.table(costlyProducts)
+            function negate(predicate){
+                return function(){
+                    return !predicate.apply(this, arguments)
+                }
+            }
+            useCase("Products by cost", function(){
+                const costlyProductPredicate = product => product.cost > 50;
+
+                useCase('costly products [cost > 50]', function(){
+                    const costlyProducts = filter(products, costlyProductPredicate)
+                    console.table(costlyProducts)
+                })
+                useCase('affordable products', function(){
+                    // const affordableProductPredicate = product => product.cost <= 50
+                    // const affordableProductPredicate = product => !costlyProductPredicate(product)
+                    const affordableProductPredicate = negate(costlyProductPredicate)
+                    const affordableProducts = filter(products, affordableProductPredicate)
+                    console.table(affordableProducts)
+                })
             })
-            // filtering affordable products?
-            useCase('understocked products [units < 50]', function(){
+            useCase('products by cost', function(){
                 const understockedProductPredicate = product => product.units < 50
-                const understockedProducts = filter(products, understockedProductPredicate);
-                console.table(understockedProducts)
+                useCase('understocked products [units < 50]', function(){
+                    const understockedProducts = filter(products, understockedProductPredicate);
+                    console.table(understockedProducts)
+                })
+                // filtering wellstocked products?
+                useCase('wellstocked products', function(){
+                    // const wellstockedProductPredicate = product => product.units >= 50;
+                    // const wellstockedProductPredicate = product => !understockedProductPredicate(product)
+                    const wellstockedProductPredicate = negate(understockedProductPredicate)
+                    const wellstockedProducts = filter(products, wellstockedProductPredicate)
+                    console.table(wellstockedProducts)
+                })
             })
-            // filtering wellstocked products?
+        })
+    })
+
+    useCase('GroupBy', function(){
+        function groupBy(list, keySelector){
+            let keySelectorFn;
+            if (typeof keySelector === 'function'){
+                keySelectorFn = keySelector;
+            }
+            if (typeof keySelector === 'string'){
+                keySelectorFn = function(item){
+                    return item[keySelector]
+                }
+            }
+            if (!keySelectorFn) return;
+            let result = {}
+            for(let item of list){
+                let key = keySelectorFn(item)
+                result[key] = result[key] || []
+                /* 
+                if (typeof result[key] === 'undefined')
+                    result[key] = [] 
+                */
+                result[key].push(item)
+            }
+            return result;
+        }
+        useCase('products by category [attrName]', function(){
+            let productsByCategory = groupBy(products, 'category');
+            console.log(productsByCategory);
+        });
+        useCase('products by cost [keySelector function]', function(){
+            const costKeySelector = product => product.cost > 50 ? 'costly' : 'affordable';
+            let productsByCost = groupBy(products, costKeySelector)
+            console.log(productsByCost);
         })
     })
 })
+
+// groupBy using 'reduce'
+products.reduce((prevResult, product) => {
+    const key = product.category;
+    const nextResult = { ...prevResult, [key] : prevResult[key] || [] }
+    nextResult[key].push(product);
+    return nextResult;
+},{})
