@@ -200,16 +200,37 @@ function doCalculation(x,y){
 }
 
 // rewrite the below function using async-await
-function doCalculationAsyncAwait(x,y){
+/* 
+async function doCalculationAsyncAwait(x,y){
     console.log(`[@client] invoking the add service`)
     const addPromise = addAsyncPromise(x,y);
-    addPromise.then((result) => {
-        console.log(`[@client] add result : ${result}`)
-    })
+    const addResult = await addPromise
+    console.log(`[@client] add result : ${addResult}`)
+    
 
     console.log(`[@client] invoking the divide service`)
     const dividePromise = divideAsyncPromise(x,y);
-    dividePromise.then((result) => {
-        console.log(`[@client] divide result : ${result}`)
-    })
+    const divideResult = await dividePromise
+    console.log(`[@client] divide result : ${divideResult}`)
+    
+} 
+*/
+
+async function doCalculationAsyncAwait(x,y){
+    console.log(`[@client] invoking the add service`)
+    const addPromise = addAsyncPromise(x,y);
+    console.log(`[@client] invoking the divide service`)
+    const dividePromise = divideAsyncPromise(x,y);
+
+    /* 
+    const allResultPromise = Promise.all([addPromise, dividePromise])
+    allResultPromise.then(([addResult, divideResult]) => {
+        console.log(`[@client] add result : ${addResult}`)
+        console.log(`[@client] divide result : ${divideResult}`)
+    })   
+    */  
+    const  [addResult, divideResult] = await Promise.all([addPromise, dividePromise])
+    console.log(`[@client] add result : ${addResult}`)
+    console.log(`[@client] divide result : ${divideResult}`)
+
 }
