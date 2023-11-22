@@ -1,0 +1,2 @@
+(()=>{"use strict";let e,t,n,l,d;function o(){let e=parseInt(l.value)-parseInt(d.value);n.innerText=e}function a(){let e=parseInt(l.value)+parseInt(d.value);n.innerText=e}console.log(Date()),console.log("Hello there again!"),window.addEventListener("load",(function(){l=document.getElementById("txtN1"),d=document.getElementById("txtN2"),e=document.getElementById("btnAdd"),t=document.getElementById("btnSubtract"),n=document.getElementById("divResult"),e.addEventListener("click",a),t.addEventListener("click",o)}))})();
+//# sourceMappingURL=index.c61b951f0d1170c042c7.js.map
